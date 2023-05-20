@@ -112,8 +112,18 @@ function checkIfValid(target) {
                 break;
         case 'knight':
             if (
-                startId
-            )
+                startId + width * 2 + 1 === targetId ||
+                startId + width * 2 - 1 === targetId ||
+                startId + width - 2 === targetId ||
+                startId + width + 2 === targetId ||
+                startId - width * 2 + 1 === targetId ||
+                startId - width * 2 - 1 === targetId ||
+                startId - width - 2 === targetId ||
+                startId - width + 2 === targetId
+            ) {
+                return true
+            }
+            break;
                 
     }
 }
