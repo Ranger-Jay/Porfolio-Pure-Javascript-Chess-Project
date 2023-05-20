@@ -70,12 +70,12 @@ function dragDrop(e) { //the magic - put console logs 1 line below to test.
 
     if (correctGo) {
         // must check this first
-        if (takenByOpponent && valid) {
-        e.target.parentNode.append(draggedElement)
-        e.target.remove()
-        changePlayer()
-        return
-        }
+        // if (takenByOpponent && valid) {
+        // e.target.parentNode.append(draggedElement)
+        // e.target.remove()
+        // changePlayer()
+        // return
+        // }
         // then check this
         if (taken && !takenByOpponent) {
             infoDisplay.textContent = "you cannot go here!"
@@ -94,17 +94,26 @@ function checkIfValid(target) {
     const targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'))
     const startId = Number(startPositionId)
     const piece = draggedElement.id
-    console.log('target', targetId)
-    console.log('start', startId)
+    console.log('targetId', targetId)
+    console.log('startId', startId)
     console.log('piece', piece)
 
     switch(piece) {
         case 'pawn' :
+            const starterRow = [8,9,10,11,12,13,14,15]
+            if (
+                starterRow.includes(startId) && startId + width * 2 === targetId ||
+                startId + width === targetId ||
+                startId + width - 1 === targetId && document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild ||
+                startId + width + 1 === targetId && document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild
+                ) {
+                    return true
+                }
+                break;
+        case 'knight' :
+                
     }
 }
-
-
-
 
 
 
