@@ -64,18 +64,18 @@ function dragDrop(e) { //the magic - put console logs 1 line below to test.
     e.stopPropagation()     //console.log('playerGo', playerGo)
     const correctGo = draggedElement.firstChild.classList.contains(playerGo)
     const taken = e.target.classList.contains('piece')
-    const valid = checkIfValid(e.taken)
+    const valid = checkIfValid(e.target)
     const opponentGo = playerGo === 'white' ? 'black' : 'white' //console.log('opponentGo', opponentGo)
     const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo)
 
     if (correctGo) {
         // must check this first
-        // if (takenByOpponent && valid) {
-        // e.target.parentNode.append(draggedElement)
-        // e.target.remove()
-        // changePlayer()
-        // return
-        // }
+        if (takenByOpponent && valid) {
+        e.target.parentNode.append(draggedElement)
+        e.target.remove()
+        changePlayer()
+        return
+        }
         // then check this
         if (taken && !takenByOpponent) {
             infoDisplay.textContent = "you cannot go here!"
@@ -107,10 +107,13 @@ function checkIfValid(target) {
                 startId + width - 1 === targetId && document.querySelector(`[square-id="${startId + width - 1}"]`).firstChild ||
                 startId + width + 1 === targetId && document.querySelector(`[square-id="${startId + width + 1}"]`).firstChild
                 ) {
-                    return true
-                }
+                return true
+            }
                 break;
-        case 'knight' :
+        case 'knight':
+            if (
+                startId
+            )
                 
     }
 }
