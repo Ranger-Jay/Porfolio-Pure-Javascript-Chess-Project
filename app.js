@@ -60,15 +60,56 @@ function dragOver(e) {
     e.preventDefault()
 }
 
-function dragDrop(e) { //the magic
-     e.stopPropagation()
+function dragDrop(e) { //the magic - put console logs 1 line below to test.
+    e.stopPropagation()     //console.log('playerGo', playerGo)
+    const correctGo = draggedElement.firstChild.classList.contains(playerGo)
     const taken = e.target.classList.contains('piece')
+    const valid = checkIfValid(e.taken)
+    const opponentGo = playerGo === 'white' ? 'black' : 'white' //console.log('opponentGo', opponentGo)
+    const takenByOpponent = e.target.firstChild?.classList.contains(opponentGo)
 
-    //  e.target.parentNode.append(draggedElement)
-    //  e.target.remove()
-    // e.target.append(draggedElement)
-    changePlayer()    
+    if (correctGo) {
+        // must check this first
+        if (takenByOpponent && valid) {
+        e.target.parentNode.append(draggedElement)
+        e.target.remove()
+        changePlayer()
+        return
+        }
+        // then check this
+        if (taken && !takenByOpponent) {
+            infoDisplay.textContent = "you cannot go here!"
+            setTimeout(() => infoDisplay.textContent = "", 3000)
+            return
+        }
+        if (valid) {
+            e.target.append(draggedElement)
+            changePlayer()
+            return
+        }
+    }
 }
+
+function checkIfValid(target) {
+    const targetId = Number(target.getAttribute('square-id')) || Number(target.parentNode.getAttribute('square-id'))
+    const startId = Number(startPositionId)
+    const piece = draggedElement.id
+    console.log('target', targetId)
+    console.log('start', startId)
+    console.log('piece', piece)
+
+    switch(piece) {
+        case 'pawn' :
+    }
+}
+
+
+
+
+
+
+
+
 
 function changePlayer() { //handles turn order under board (flip squareIDs)
     if(playerGo === "black") {
