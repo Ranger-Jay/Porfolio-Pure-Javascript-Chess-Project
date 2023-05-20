@@ -8,9 +8,9 @@ const pawn = `<div class='piece' id='pawn'><svg xmlns="http://www.w3.org/2000/sv
 
 
 
-console.log(king);
-console.log(queen);
-console.log(rook);
-console.log(bishop);
-console.log(knight);
-console.log(pawn);
+// console.log(king);
+// console.log(queen);
+// console.log(rook);
+// console.log(bishop);
+// console.log(knight);
+// console.log(pawn);
