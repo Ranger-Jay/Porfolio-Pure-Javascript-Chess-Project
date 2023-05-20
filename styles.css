@@ -24,3 +24,11 @@
 .brown {
     background-color: rgb(169, 43, 43);
 }
+
+.black {
+    fill: rgb(42, 39, 39);
+}
+
+.white {
+    fill: rgb(235, 235, 235);
+}
