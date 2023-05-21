@@ -73,17 +73,19 @@ function dragDrop(e) { //the magic - put console logs 1 line below to test.
         if (takenByOpponent && valid) {
         e.target.parentNode.append(draggedElement)
         e.target.remove()
+        checkForWin()
         changePlayer()
         return
         }
         // then check this
         if (taken && !takenByOpponent) {
             infoDisplay.textContent = "you cannot go here!"
-            setTimeout(() => infoDisplay.textContent = "", 3000)
+            setTimeout(() => infoDisplay.textContent = "", 3500)
             return
         }
         if (valid) {
             e.target.append(draggedElement)
+            checkForWin()
             changePlayer()
             return
         }
@@ -283,11 +285,6 @@ function checkIfValid(target) {
     }
 }
 
-
-
-
-
-
 function changePlayer() { //handles turn order under board (flip squareIDs)
     if(playerGo === "black") {
         reverseIds()
@@ -308,6 +305,20 @@ function reverseIds() { //reverses board square-IDs for turn handling
 
 function revertIds() { //sets IDs back to white after black
     const allSquares = document.querySelectorAll(".square")
-    allSquares.forEach((square, i) =>
-        square.setAttribute('square-id', i))
+    allSquares.forEach((square, i) => square.setAttribute('square-id', i))
+}
+
+function checkForWin () {
+    const kings = Array.from(document.querySelectorAll('#king'))
+    console.log(kings)
+    if (!kings.some(king => king.firstChild.classList.contains('white'))) {
+        infoDisplay.innerHTML = "Black player wins!"
+        const allSquares = document.querySelectorAll('.square')
+        allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false))
+    }
+    if (!kings.some(king => king.firstChild.classList.contains('black'))) {
+        infoDisplay.innerHTML = "White player wins!"
+        const allSquares = document.querySelectorAll('.square')
+        allSquares.forEach(square => square.firstChild?.setAttribute('draggable', false))
+    }
 }
